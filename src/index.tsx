@@ -1,16 +1,21 @@
-import { configureStore } from '@reduxjs/toolkit'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
 
-import api from './services/api'
-import productReducer from './redux/cart/slice'
+import App from './App'
+import store from './redux/store'
+import reportWebVitals from './reportWebVitals'
 
-const store = configureStore({
-  reducer: {
-    cart: productReducer,
-    [api.reducerPath]: api.reducer
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware)
-})
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+)
 
-export default store
-export type RootReducer = ReturnType<typeof store.getState>
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals()
